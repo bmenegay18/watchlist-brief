@@ -101,6 +101,9 @@ section { margin-bottom: 2rem; }
 .log .note { margin: .4rem 0 0; color: var(--muted); font-size: .9rem; }
 .log .note strong { color: var(--ink); }
 
+/* Tap targets: links in rows are at least 44px tall */
+.tape .sym a, .items .h a, .items a.src, .cal .src a, #repo a { display: inline-flex; align-items: center; min-height: 44px; }
+
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; padding: 1rem 0 2rem; }
 footer p { margin: .2rem 0; }
 
@@ -167,107 +170,249 @@ footer p { margin: .2rem 0; }
 /* ===== DATA. The refresh-brief agent edits BRIEF and CHANGELOG only. ===== */
 
 const WATCHLIST = {
-  owner: "Your Name",
-  club: "SIBC",
+  owner: "Bode Menegay",
+  club: "Airlines",
   repo: "",
   tickers: [
-    { symbol: "NVDA", name: "NVIDIA", exchange: "NASDAQ", why: "The AI capex cycle in one ticker. If this moves, the whole list moves." },
-    { symbol: "JPM",  name: "JPMorgan Chase", exchange: "NYSE", why: "The bank every banking recruit should be able to talk about for five minutes." },
-    { symbol: "ACN",  name: "Accenture", exchange: "NYSE", why: "The consulting bellwether. Its bookings tell you how clients feel about spending." },
-    { symbol: "DE",   name: "Deere", exchange: "NYSE", why: "Midwest industrial. Farm income, tariffs, and rates all show up here." },
+    { symbol: "DAL",  name: "Delta Air Lines", exchange: "NYSE", why: "The premium-travel and profitability benchmark for U.S. airlines." },
+    { symbol: "UAL",  name: "United Airlines Holdings", exchange: "NASDAQ", why: "Big international network. Fuel, demand, and fares show up here." },
+    { symbol: "AAL",  name: "American Airlines Group", exchange: "NASDAQ", why: "The largest U.S. carrier by fleet, with a heavy debt load that makes it rate-sensitive." },
+    { symbol: "LUV",  name: "Southwest Airlines", exchange: "NYSE", why: "The low-cost model in transition. Watch how its pricing and fee changes play out." },
+    { symbol: "ALK",  name: "Alaska Air Group", exchange: "NYSE", why: "West Coast carrier. Its integration of Hawaiian Airlines is the story." },
+    { symbol: "JBLU", name: "JetBlue Airways", exchange: "NASDAQ", why: "Smaller carrier working on profitability. Moves hard on news." },
+    { symbol: "SKYW", name: "SkyWest", exchange: "NASDAQ", why: "Regional flying for the big carriers. A read on capacity and pilot supply." },
+    { symbol: "ULCC", name: "Frontier Group Holdings", exchange: "NASDAQ", why: "Ultra-low-cost model. A read on price-sensitive leisure demand." },
+    { symbol: "AC.TO", name: "Air Canada", exchange: "TSX", why: "Canada's largest airline. Gives a non-U.S. view on transborder and international demand." },
+    { symbol: "RYAAY", name: "Ryanair Holdings", exchange: "NASDAQ", why: "Europe's biggest low-cost carrier. A read on European travel demand." },
     { symbol: "LLY",  name: "Eli Lilly", exchange: "NYSE", why: "Indiana's largest company and the GLP-1 story." }
   ]
 };
 
 const BRIEF = {
-  mode: "sample",
-  asOf: "2026-10-16",
-  retrievedAt: "2026-10-16T16:30:00-04:00",
+  mode: "live",
+  asOf: "2026-10-29",
+  retrievedAt: "2026-10-29T00:00:00-04:00",
   priceType: "close",
   companies: {
-    NVDA: {
+    DAL: {
       closes: [
-        { date: "2026-10-12", close: 100.00 },
-        { date: "2026-10-13", close: 101.40 },
-        { date: "2026-10-14", close: 99.80 },
-        { date: "2026-10-15", close: 103.10 },
-        { date: "2026-10-16", close: 104.20 }
+        { date: "2026-10-23", close: 76.78 },
+        { date: "2026-10-26", close: 79.16 },
+        { date: "2026-10-27", close: 81.45 },
+        { date: "2026-10-28", close: 80.35 },
+        { date: "2026-10-29", close: 81.64 }
       ],
       latest: null,
-      priceSource: "https://example.com/sample",
+      priceSource: "https://stockanalysis.com/stocks/dal/history/",
       news: [
-        { date: "2026-10-15", headline: "Sample headline. Run the refresh-brief agent to replace this.", source: "Sample", url: "https://example.com/sample", why: "Sample. The agent writes one plain sentence here on why the item matters to the stock." }
+        { date: "2026-10-28", headline: "Aeroitalia selects Delta TechOps for 737 fleet component support program", source: "Delta News Hub", url: "https://news.delta.com/aeroitalia-selects-delta-techops-737-fleet-component-support-program.md", why: "Adds Aeroitalia as a customer for Delta's maintenance business (737 component support); contract value, terms and duration were not disclosed." }
       ],
       upcoming: [
-        { date: "2026-10-28", event: "Sample event (replace by refreshing)", source: "Sample", url: "https://example.com/sample" }
+        { date: "2026-11-06", event: "Market-wide: U.S. jobs report (October employment situation), 8:30 AM ET", source: "U.S. Bureau of Labor Statistics", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
+        { date: "2026-11-10", event: "Market-wide: U.S. consumer price index (October CPI), 8:30 AM ET", source: "U.S. Bureau of Labor Statistics", url: "https://www.bls.gov/schedule/news_release/cpi.htm" }
       ]
     },
-    JPM: {
+    UAL: {
       closes: [
-        { date: "2026-10-12", close: 100.00 },
-        { date: "2026-10-13", close: 99.30 },
-        { date: "2026-10-14", close: 98.90 },
-        { date: "2026-10-15", close: 98.20 },
-        { date: "2026-10-16", close: 97.60 }
+        { date: "2026-10-23", close: 97.93 },
+        { date: "2026-10-26", close: 100.69 },
+        { date: "2026-10-27", close: 104.71 },
+        { date: "2026-10-28", close: 103.43 },
+        { date: "2026-10-29", close: 105.21 }
       ],
       latest: null,
-      priceSource: "https://example.com/sample",
+      priceSource: "https://stockanalysis.com/stocks/ual/history/",
+      news: [],
+      upcoming: []
+    },
+    AAL: {
+      closes: [
+        { date: "2026-10-23", close: 12.11 },
+        { date: "2026-10-26", close: 12.20 },
+        { date: "2026-10-27", close: 12.61 },
+        { date: "2026-10-28", close: 12.58 },
+        { date: "2026-10-29", close: 12.78 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/stocks/aal/history/",
       news: [
-        { date: "2026-10-14", headline: "Sample headline. Run the refresh-brief agent to replace this.", source: "Sample", url: "https://example.com/sample", why: "Sample." }
+        { date: "2026-10-22", headline: "American sets new revenue records amid historic fuel cost pressure", source: "American Airlines (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0000006201/000000620126000064/a8kerexhibit991q3-26.htm", why: "Q3 revenue was $16.3 billion, up 19.3%, but fuel expense rose 67.5% and the company still guides to a full-year adjusted loss of $1.00 to $1.60 per share." }
       ],
       upcoming: []
     },
-    ACN: {
+    LUV: {
       closes: [
-        { date: "2026-10-12", close: 100.00 },
-        { date: "2026-10-13", close: 100.20 },
-        { date: "2026-10-14", close: 99.90 },
-        { date: "2026-10-15", close: 100.10 },
-        { date: "2026-10-16", close: 100.05 }
+        { date: "2026-10-23", close: 41.75 },
+        { date: "2026-10-26", close: 42.85 },
+        { date: "2026-10-27", close: 43.44 },
+        { date: "2026-10-28", close: 43.47 },
+        { date: "2026-10-29", close: 43.68 }
       ],
       latest: null,
-      priceSource: "https://example.com/sample",
+      priceSource: "https://stockanalysis.com/stocks/luv/history/",
+      news: [
+        { date: "2026-10-23", headline: "Southwest Posts Record Q3 Revenue Despite Higher Fuel Costs", source: "AirWays", url: "https://www.airwaysmag.com/new-post/southwest-q3-2026-record-revenue-fuel-costs", why: "Q3 net income was $270 million on revenue up 21.2%, driven by unit revenue (RASM) up 21.6% on capacity down 0.4%." }
+      ],
+      upcoming: []
+    },
+    ALK: {
+      closes: [
+        { date: "2026-10-23", close: 34.40 },
+        { date: "2026-10-26", close: 34.95 },
+        { date: "2026-10-27", close: 35.91 },
+        { date: "2026-10-28", close: 35.58 },
+        { date: "2026-10-29", close: 36.15 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/stocks/alk/history/",
       news: [],
+      upcoming: []
+    },
+    JBLU: {
+      closes: [
+        { date: "2026-10-23", close: 2.63 },
+        { date: "2026-10-26", close: 2.37 },
+        { date: "2026-10-27", close: 2.82 },
+        { date: "2026-10-28", close: 2.85 },
+        { date: "2026-10-29", close: 3.05 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/stocks/jblu/history/",
+      news: [
+        { date: "2026-10-26", headline: "JetBlue Posts US$257m Q3 Loss Despite 21% Revenue Growth", source: "AirWays", url: "https://www.airwaysmag.com/new-post/jetblue-q3-2026-loss-revenue-fuel-costs", why: "The loss widened as fuel expense rose 61%, and JetBlue lowered its full-year adjusted operating margin guidance to -6.5% to -4.5%." }
+      ],
+      upcoming: []
+    },
+    SKYW: {
+      closes: [
+        { date: "2026-10-23", close: 93.03 },
+        { date: "2026-10-26", close: 94.10 },
+        { date: "2026-10-27", close: 95.68 },
+        { date: "2026-10-28", close: 95.27 },
+        { date: "2026-10-29", close: 96.54 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/stocks/skyw/history/",
+      news: [
+        { date: "2026-10-29", headline: "SkyWest, Inc. Announces Third Quarter 2026 Profit", source: "SkyWest (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0000793733/000110465926120182/skyw-ex99d1.htm", why: "Net income was $120 million ($3.08 per share) on revenue of $1.12 billion, up 6%, with higher fuel in its prorate business the main drag." }
+      ],
       upcoming: [
-        { date: "2026-10-22", event: "Sample event (replace by refreshing)", source: "Sample", url: "https://example.com/sample" }
+        { date: "2026-10-29", event: "Q3 earnings conference call, 2:30 PM Mountain Time", source: "SkyWest (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0000793733/000110465926120182/skyw-ex99d1.htm" }
       ]
     },
-    DE: {
+    ULCC: {
       closes: [
-        { date: "2026-10-12", close: 100.00 },
-        { date: "2026-10-13", close: 102.50 },
-        { date: "2026-10-14", close: 101.80 },
-        { date: "2026-10-15", close: 103.90 },
-        { date: "2026-10-16", close: 102.70 }
+        { date: "2026-10-23", close: 4.94 },
+        { date: "2026-10-26", close: 4.91 },
+        { date: "2026-10-27", close: 5.53 },
+        { date: "2026-10-28", close: 6.17 },
+        { date: "2026-10-29", close: 6.48 }
       ],
       latest: null,
-      priceSource: "https://example.com/sample",
+      priceSource: "https://stockanalysis.com/stocks/ulcc/history/",
       news: [
-        { date: "2026-10-13", headline: "Sample headline. Run the refresh-brief agent to replace this.", source: "Sample", url: "https://example.com/sample", why: "Sample." }
+        { date: "2026-10-28", headline: "Frontier Airlines Delivers Record Third Quarter 2026 Revenue of $1.4 billion", source: "Frontier Group Holdings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001670076/000167007626000102/frontier_earningsreleasexq.htm", why: "Revenue hit $1.355 billion and adjusted EPS of $0.18 beat guidance, though GAAP net loss was $104 million; Q4 adjusted EPS guided to -$0.15 to $0.05." }
+      ],
+      upcoming: []
+    },
+    "AC.TO": {
+      closes: [
+        { date: "2026-10-23", close: 21.11 },
+        { date: "2026-10-26", close: 21.55 },
+        { date: "2026-10-27", close: 22.14 },
+        { date: "2026-10-28", close: 21.82 },
+        { date: "2026-10-29", close: 21.87 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/quote/tsx/AC/history/",
+      news: [],
+      upcoming: [
+        { date: "2026-10-29", event: "Third quarter 2026 results presentation (listen-only webcast), 5:30 PM ET. Prices on this page are in CAD.", source: "Air Canada", url: "https://www.aircanada.com/media/air-canada-to-present-third-quarter-2026-results/" }
+      ]
+    },
+    RYAAY: {
+      closes: [
+        { date: "2026-10-23", close: 52.53 },
+        { date: "2026-10-26", close: 53.00 },
+        { date: "2026-10-27", close: 53.29 },
+        { date: "2026-10-28", close: 52.31 },
+        { date: "2026-10-29", close: 53.39 }
+      ],
+      latest: null,
+      priceSource: "https://stockanalysis.com/stocks/ryaay/history/",
+      news: [
+        { date: "2026-10-27", headline: "Bag drop deadline moves to 60 minutes before departure from 10 November", source: "Ryanair", url: "https://corporate.ryanair.com/news/ryanair-reminds-passengers-of-60-min-bag-drop-closure-from-tue-10-nov-airport-bag-drop-will-close-60-mins-before-departure/", why: "A minor operating change (bag drop closes 60 minutes before departure instead of 40, affecting about 20% of passengers) with little direct effect on earnings." }
       ],
       upcoming: []
     },
     LLY: {
       closes: [
-        { date: "2026-10-12", close: 100.00 },
-        { date: "2026-10-13", close: 98.70 },
-        { date: "2026-10-14", close: 99.60 },
-        { date: "2026-10-15", close: 101.30 },
-        { date: "2026-10-16", close: 102.90 }
+        { date: "2026-10-23", close: 1273.46 },
+        { date: "2026-10-26", close: 1279.14 },
+        { date: "2026-10-27", close: 1281.91 },
+        { date: "2026-10-28", close: 1288.30 },
+        { date: "2026-10-29", close: 1373.70 }
       ],
       latest: null,
-      priceSource: "https://example.com/sample",
+      priceSource: "https://stockanalysis.com/stocks/lly/history/",
       news: [
-        { date: "2026-10-16", headline: "Sample headline. Run the refresh-brief agent to replace this.", source: "Sample", url: "https://example.com/sample", why: "Sample." }
+        { date: "2026-10-29", headline: "Lilly reports Q3 2026 financial results, raises full-year guidance, and highlights regulatory progress", source: "Eli Lilly (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0000059478/000005947826000104/q326lillysalesandearningsp.htm", why: "Revenue rose 39% to $24.4 billion on Mounjaro and Zepbound, and 2026 revenue guidance went up to $91.0 to $92.0 billion." }
       ],
-      upcoming: [
-        { date: "2026-10-30", event: "Sample event (replace by refreshing)", source: "Sample", url: "https://example.com/sample" }
-      ]
+      upcoming: []
     }
   }
 };
 
 const CHANGELOG = [
+  {
+    date: "2026-10-29",
+    summary: [
+      "Second refresh today. Re-checked all 11 price pages: the latest close is still Oct 29 (after-hours only since), so closes are unchanged and asOf stays 2026-10-29.",
+      "DAL 76.78 to 81.64 (+6.3%), no major news (Oct 28 Aeroitalia TechOps deal only)",
+      "UAL 97.93 to 105.21 (+7.4%), no major news in the window (Q3 results were Oct 20, outside seven days)",
+      "AAL 12.11 to 12.78 (+5.5%) on record Q3 revenue of $16.3B and a still-negative full-year outlook",
+      "LUV 41.75 to 43.68 (+4.6%) on record Q3 revenue and $270M net income",
+      "ALK 34.40 to 36.15 (+5.1%), no major news in the window",
+      "JBLU 2.63 to 3.05 (+16.0%) after a Q3 loss of $257M and lowered margin guidance",
+      "SKYW 93.03 to 96.54 (+3.8%) on Q3 net income of $120M ($3.08 per share)",
+      "ULCC 4.94 to 6.48 (+31.2%) on record Q3 revenue and adjusted EPS above guidance",
+      "AC.TO 21.11 to 21.87 CAD (+3.6%), no news found",
+      "RYAAY 52.53 to 53.39 (+1.6%), no major news",
+      "LLY 1273.46 to 1373.70 (+7.9%) on Q3 revenue up 39% and raised 2026 revenue guidance",
+      "Corrected after fact-check: the DAL (Aeroitalia) and LUV (record Q3 revenue) news 'why' lines now state only what the articles support.",
+      "News: re-opened every news link; corrected the published headlines for ULCC, LLY and RYAAY and trimmed the DAL 'why' line (no longer cites an Oct 9 item I did not open this run). No new items found.",
+      "Calendar added: market-wide U.S. jobs report Nov 6 and CPI Nov 10 (BLS pages), attached to DAL because BRIEF has no market-wide slot. SKYW call and AC.TO results presentation today kept.",
+      "Missing news (empty list): UAL, ALK, AC.TO. Air Canada's Q3 results (released Oct 29) were not found in search.",
+      "Missing calendar (empty list): UAL, AAL, LUV, ALK, JBLU, ULCC, RYAAY (H1 FY27 results date not found), LLY; no confirmed earnings or dividend dates found for any ticker in the next 14 days.",
+      "retrievedAt is a placeholder (2026-10-29T00:00:00-04:00): the agent cannot read a clock. One price page says it was last checked Oct 30, 2026, so the true time may be later."
+    ],
+    note: "Verify first: (1) retrievedAt is not a real time, so set it by hand; (2) all prices come from stockanalysis.com only, and the ULCC (+31%), JBLU (+16%) and LLY one-week moves are large, so confirm them elsewhere; (3) Air Canada Q3 results are not yet in the brief. Also, the earlier Oct 29 entry below mentions NVDA, JPM, ACN, which are not in WATCHLIST."
+  },
+  {
+    date: "2026-10-29",
+    summary: [
+      "NVDA 210.96 to 213.66 (+1.3%) on Meta stock-offering filing naming Nvidia as a possible buyer",
+      "JPM 331.58 to 343.58 (+3.6%), no major news in the window",
+      "ACN 249.37 to 247.22 (-0.9%), no major news",
+      "DAL 76.78 to 81.64 (+6.3%), no major news (Oct 28 Aeroitalia TechOps deal only)",
+      "UAL 97.93 to 105.21 (+7.4%), no major news in the window (Q3 results were Oct 20, outside seven days)",
+      "AAL 12.11 to 12.78 (+5.5%) on Q3 record revenue and a still-negative full-year outlook",
+      "LUV 41.75 to 43.68 (+4.6%) on record Q3 revenue and $270M net income",
+      "ALK 34.40 to 36.15 (+5.1%), no major news in the window (Q3 results were Oct 20, outside seven days)",
+      "JBLU 2.63 to 3.05 (+16.0%) after a Q3 loss of $257M and lowered margin guidance",
+      "SKYW 93.03 to 96.54 (+3.8%) on Q3 net income of $120M ($3.08 per share)",
+      "ULCC 4.94 to 6.48 (+31.2%) on record Q3 revenue and adjusted EPS above guidance",
+      "AC.TO 21.11 to 21.87 CAD (+3.6%), no news found",
+      "RYAAY 52.53 to 53.39 (+1.6%), no major news",
+      "LLY 1273.46 to 1373.70 (+7.9%) on Q3 revenue up 39% and raised 2026 revenue guidance",
+      "Removed the sample-only DE entry (not in WATCHLIST). Replaced all sample data with sourced data; mode is now live.",
+      "Calendar added: JPM dividend payable Oct 31; market-wide jobs report Nov 6 and CPI Nov 10 (attached to JPM, since BRIEF has no market-wide slot); SKYW call and AC.TO results today.",
+      "Missing news (empty list): JPM, ACN, UAL, ALK, AC.TO. I found no item dated Oct 22 to 29 that I could open and date. Air Canada's Q3 results themselves could not be found.",
+      "Missing calendar (empty list): NVDA (next earnings date not confirmed on any page I opened), ACN, DAL, UAL, AAL, LUV, ALK, JBLU, ULCC, RYAAY (H1 FY27 results date not found), LLY.",
+      "All prices are daily closes, Oct 23 to Oct 29, from one source (stockanalysis.com). AC.TO is in CAD; the others are USD."
+    ],
+    note: "Verify first: (1) the Oct 29 close for every ticker, since stockanalysis.com is a secondary source and the stamp retrievedAt is a placeholder midnight because the agent has no clock; (2) the NVDA news item comes from an AI-assisted aggregator (Gotrade), not the Meta filing itself; (3) the LLY, ULCC and JBLU one-day moves are large, so confirm them against a second source. Also: DAL and UAL items are dated outside or at the edge of the seven-day window, so they have little or no news."
+  },
   {
     date: "2026-10-16",
     summary: [
